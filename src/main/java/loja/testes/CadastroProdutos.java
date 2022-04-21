@@ -3,10 +3,10 @@ package loja.testes;
 import java.math.BigDecimal;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
+import loja.dao.ProdutoDAO;
 import loja.model.Produto;
+import loja.util.JPAUtil;
 
 public class CadastroProdutos {
 	
@@ -16,11 +16,11 @@ public class CadastroProdutos {
 		celular.setDescricao("Celular da empresa Xiaomi");
 		celular.setPreco(new BigDecimal(2000));
 		
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("loja");
-		EntityManager em = factory.createEntityManager();
+		EntityManager em = JPAUtil.getEntityManager();
+		ProdutoDAO dao = new ProdutoDAO(em);
 		
 		em.getTransaction().begin();
-		em.persist(celular);
+		dao.cadastrar(celular);
 		em.getTransaction().commit();
 		em.close();
 	}
