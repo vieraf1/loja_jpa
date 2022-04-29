@@ -4,22 +4,29 @@ import java.math.BigDecimal;
 
 import javax.persistence.EntityManager;
 
+import loja.dao.CategoriaDAO;
 import loja.dao.ProdutoDAO;
+import loja.model.Categoria;
 import loja.model.Produto;
-import loja.model.enums.CategoriaEnum;
 import loja.util.JPAUtil;
 
 public class CadastroProdutos {
 
 	public static void main(String[] args) {
+		Categoria categoria = new Categoria("Celulares");
+
 		Produto celular = new Produto("Xiaomi Redmi 8 pro", "Celular da empresa Xiaomi", new BigDecimal(2000),
-				CategoriaEnum.CELULAR);
+				categoria);
 
 		EntityManager em = JPAUtil.getEntityManager();
-		ProdutoDAO dao = new ProdutoDAO(em);
+		ProdutoDAO produtoDao = new ProdutoDAO(em);
+		CategoriaDAO categoriaDao = new CategoriaDAO(em);
 
 		em.getTransaction().begin();
-		dao.cadastrar(celular);
+
+		categoriaDao.cadastrar(categoria);
+		produtoDao.cadastrar(celular);
+
 		em.getTransaction().commit();
 		em.close();
 	}

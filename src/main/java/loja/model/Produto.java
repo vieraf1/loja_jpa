@@ -4,14 +4,11 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import loja.model.enums.CategoriaEnum;
 
 @Entity
 @Table(name = "produtos")
@@ -26,10 +23,10 @@ public class Produto {
 	private BigDecimal preco;
 	private LocalDate dataCadastro = LocalDate.now();
 	
-	@Enumerated(EnumType.STRING)
-	private CategoriaEnum categoria;
+	@ManyToOne
+	private Categoria categoria;
 
-	public Produto(String nome, String descricao, BigDecimal preco, CategoriaEnum categoria) {
+	public Produto(String nome, String descricao, BigDecimal preco, Categoria categoria) {
 		this.nome = nome;
 		this.descricao = descricao;
 		this.preco = preco;
@@ -76,12 +73,18 @@ public class Produto {
 		this.dataCadastro = dataCadastro;
 	}
 
-	public CategoriaEnum getCategoria() {
+	public Categoria getCategoria() {
 		return categoria;
 	}
 
-	public void setCategoria(CategoriaEnum categoria) {
+	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
+	}
+
+	@Override
+	public String toString() {
+		return "Produto [id=" + id + ", nome=" + nome + ", descricao=" + descricao + ", preco=" + preco
+				+ ", dataCadastro=" + dataCadastro + ", categoria=" + categoria + "]";
 	}
 
 }
