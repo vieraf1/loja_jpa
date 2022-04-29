@@ -15,4 +15,9 @@ public class ProdutoDAO {
 	public void cadastrar(Produto produto) {
 		em.persist(produto);
 	}
+	
+	public void remover(Produto produto) {
+		produto = em.merge(produto);
+		em.remove(produto);
+	}
 }
