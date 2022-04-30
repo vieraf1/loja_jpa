@@ -13,6 +13,24 @@ import loja.util.JPAUtil;
 public class CadastroProdutos {
 
 	public static void main(String[] args) {
+		cadastrarProduto();
+		Long id = 1l;
+		
+		EntityManager em = JPAUtil.getEntityManager();
+		ProdutoDAO produtoDao = new ProdutoDAO(em);
+		
+		Produto p = produtoDao.buscarPorId(id);
+		System.out.println(p);
+		
+		produtoDao.buscarTodos().forEach(p2 -> System.out.println(p2));
+		produtoDao.buscarPorNome("Xiaomi Redmi 8 pro").forEach(p2 -> System.out.println(p2));
+		produtoDao.buscarPorNome("Xiaomi Redmi").forEach(p2 -> System.out.println(p2));
+		produtoDao.buscarPorNomeCategoria("Celulares").forEach(p2 -> System.out.println(p2));
+	
+		System.out.println(produtoDao.buscarPorNomeLimitado("Xiaomi Redmi 8 pro"));
+	}
+
+	private static void cadastrarProduto() {
 		Categoria categoria = new Categoria("Celulares");
 
 		Produto celular = new Produto("Xiaomi Redmi 8 pro", "Celular da empresa Xiaomi", new BigDecimal(2000),
@@ -26,9 +44,6 @@ public class CadastroProdutos {
 
 		categoriaDao.cadastrar(categoria);
 		produtoDao.cadastrar(celular);
-		
-		produtoDao.remover(celular);
-		categoriaDao.remover(categoria);
 		
 		em.getTransaction().commit();
 		em.close();
