@@ -1,6 +1,7 @@
 package loja.testes;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 
@@ -14,6 +15,7 @@ import loja.model.ItemPedido;
 import loja.model.Pedido;
 import loja.model.Produto;
 import loja.util.JPAUtil;
+import loja.vo.RelatorioVendasVo;
 
 public class CadastroPedidos {
 
@@ -75,6 +77,9 @@ public class CadastroPedidos {
 		
 		BigDecimal totalVendido = pedidoDao.valorTotalVendido();
 		System.out.println("total vendido: " + totalVendido);
+		
+		List<RelatorioVendasVo> relatorio = pedidoDao.relatorioVendas();
+		relatorio.forEach(System.out::println);
 		
 		em.close();
 	}
