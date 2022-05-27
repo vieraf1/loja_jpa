@@ -31,7 +31,7 @@ public class CadastroProdutos {
 	}
 
 	private static void cadastrarProduto() {
-		Categoria categoria = new Categoria("Celulares");
+		Categoria categoria = new Categoria("Celulares", "Tipo 1");
 
 		Produto celular = new Produto("Xiaomi Redmi 8 pro", "Celular da empresa Xiaomi", new BigDecimal(2000),
 				categoria);
